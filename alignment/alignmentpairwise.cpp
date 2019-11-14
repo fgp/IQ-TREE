@@ -312,10 +312,16 @@ double AlignmentPairwise::optimizeDist(double initial_dist, double &d2l) {
         int N = tree->aln->virtual_pop_size;
         max_genetic_dist *= N*N;
     }
-    if (tree->optimize_by_newton) // Newton-Raphson method
+    if (tree->optimize_by_newton) {
+        // Newton-Raphson method
         dist = minimizeNewton(Params::getInstance().min_branch_length, dist, max_genetic_dist, Params::getInstance().min_branch_length, d2l);
-    else // Brent method
+        // We minimize -LogL instead of maximing LogL, so must invert the sign of the second derivative
+        d2l = -d2l;
+    }
+    else {
+        // Brent method
         dist = minimizeOneDimen(Params::getInstance().min_branch_length, dist, max_genetic_dist, Params::getInstance().min_branch_length, &negative_lh, &ferror);
+    }
 
     return dist;
 }
