@@ -2960,6 +2960,7 @@ double PhyloTree::computeDist(Params &params, Alignment *alignment, double* &dis
     double longest_dist = 0.0;
     aln = alignment;
     dist_file = params.out_prefix;
+    std::string var_file = std::string(params.out_prefix) + ".mldistvar";
     if (!model_factory) {
         if (params.compute_obs_dist)
         	dist_file += ".obsdist";
@@ -2983,6 +2984,7 @@ double PhyloTree::computeDist(Params &params, Alignment *alignment, double* &dis
     if (!params.dist_file) {
         longest_dist = computeDist(dist_mat, var_mat);
         alignment->printDist(dist_file.c_str(), dist_mat);
+        alignment->printDist(var_file.c_str(), var_mat);
     } else {
         longest_dist = alignment->readDist(params.dist_file, dist_mat);
         dist_file = params.dist_file;
