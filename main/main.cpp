@@ -2318,6 +2318,7 @@ int main(int argc, char *argv[]) {
 
     MPIHelper::getInstance().syncRandomSeed();
     
+/*
     signal(SIGABRT, &funcAbort);
 	signal(SIGFPE, &funcAbort);
 	signal(SIGILL, &funcAbort);
@@ -2325,6 +2326,7 @@ int main(int argc, char *argv[]) {
 #if !defined WIN32 && !defined _WIN32 && !defined __WIN32__
 	signal(SIGBUS, &funcAbort);
 #endif
+*/
 	printCopyright(cout);
 
 	/*
